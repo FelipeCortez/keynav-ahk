@@ -1,8 +1,10 @@
-Gui, horizontal:-Caption +E0x20 +ToolWindow +AlwaysOnTop
-Gui, vertical:-Caption +E0x20 +ToolWindow +AlwaysOnTop
+Gui, horizontal:-Caption +E0x20 +ToolWindow +AlwaysOnTop +LastFound
+WinSet, Transparent, 100
+
+Gui, vertical:-Caption +E0x20 +ToolWindow +AlwaysOnTop +LastFound
+WinSet, Transparent, 100
 
 Gui, horizontal:Color, Blue
-Gui, vertical:Color, Red
 Gui, vertical:Color, Blue
 
 CoordMode, Mouse, Screen
@@ -22,13 +24,13 @@ return
 
 #If active
 `;::
-active := false                                                                                ^
+active := false
 Gui, horizontal: Hide
 Gui, vertical: Hide
 return
 
 h::
-x1 := (x0 + x1) / 2 
+x1 := (x0 + x1) / 2
 Gosub, Redraw
 return
 
@@ -43,7 +45,7 @@ Gosub, Redraw
 return
 
 l::
-x0 := (x0 + x1) / 2 
+x0 := (x0 + x1) / 2
 Gosub, Redraw
 return
 
@@ -52,10 +54,7 @@ MouseMove, %x%, %y%
 return
 
 1::
-Gui, horizontal:Hide
-Gui, vertical:Hide
 MouseClick
-Gosub, Redraw
 return
 
 #IfWinActive
@@ -64,4 +63,5 @@ x := (x0 + x1) / 2
 y := (y0 + y1) / 2
 Gui, horizontal:Show, x%x% y0 NA h%screenheight% w1
 Gui, vertical:Show, x0 y%y% NA h1 w%screenwidth%
+WinSet, Transcolor, 0xFFFFFF
 return
