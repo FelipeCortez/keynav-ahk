@@ -57,11 +57,22 @@ return
 MouseClick
 return
 
+3::
+Click, Right
+return
+
+4::
+Click, WheelUp
+return
+
+5::
+Click, WheelDown
+return
+
 #IfWinActive
 Redraw:
 x := (x0 + x1) / 2
 y := (y0 + y1) / 2
 Gui, horizontal:Show, x%x% y0 NA h%screenheight% w1
 Gui, vertical:Show, x0 y%y% NA h1 w%screenwidth%
-WinSet, Transcolor, 0xFFFFFF
 return
