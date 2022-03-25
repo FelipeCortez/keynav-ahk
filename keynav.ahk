@@ -6,10 +6,12 @@ WinSet, Transparent, 100
 
 Gui, horizontal:Color, Blue
 Gui, vertical:Color, Blue
+Gui, box:Color, Red
 
 CoordMode, Mouse, Screen
 
 active := false
+increment := 80
 
 ^;::
 x0 := 0
@@ -69,10 +71,47 @@ return
 Click, WheelDown
 return
 
+<+k::
+y0 := y0 - increment
+y1 := y1 - increment
+Gosub, Redraw
+return
+
+<+j::
+y0 := y0 + increment
+y1 := y1 + increment
+Gosub, Redraw
+return
+
+<+h::
+x0 := x0 - increment
+x1 := x1 - increment
+Gosub, Redraw
+return
+
+<+l::
+x0 := x0 + increment
+x1 := x1 + increment
+Gosub, Redraw
+return
+
+c::
+midx := (x0 + x1) / 2
+x0 := midx - 100
+x1 := midx + 100
+midy := (y0 + y1) / 2
+y0 := midy - 100
+y1 := midy + 100
+Gosub, Redraw
+return
+
 #IfWinActive
 Redraw:
 x := (x0 + x1) / 2
 y := (y0 + y1) / 2
-Gui, horizontal:Show, x%x% y0 NA h%screenheight% w1
-Gui, vertical:Show, x0 y%y% NA h1 w%screenwidth%
+w := (x1 - x0) / 2
+h := (y1 - y0) / 2
+Gui, horizontal:Show, x%x% y%y0% NA h%h% w1
+Gui, vertical:Show, x%x0% y%y% NA h1 w%w%
+; Gui, box:Show, x%x0% y%y0% NA h%h% w%w%
 return
