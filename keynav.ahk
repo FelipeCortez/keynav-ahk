@@ -12,7 +12,6 @@ CoordMode, Mouse, Screen
 
 active := false
 dragging := false
-increment := 80
 
 ^;::
 x0 := 0
@@ -55,7 +54,9 @@ Gosub, Redraw
 return
 
 w::
-MouseMove, %x%, %y%
+xi := Floor(x)
+yi := Floor(y)
+DllCall("SetCursorPos", int, xi, int, yi)
 return
 
 1::
@@ -75,24 +76,28 @@ Click, WheelDown
 return
 
 <+k::
+increment := (y1 - y0)
 y0 := y0 - increment
 y1 := y1 - increment
 Gosub, Redraw
 return
 
 <+j::
+increment := (y1 - y0)
 y0 := y0 + increment
 y1 := y1 + increment
 Gosub, Redraw
 return
 
 <+h::
+increment := (x1 - x0)
 x0 := x0 - increment
 x1 := x1 - increment
 Gosub, Redraw
 return
 
 <+l::
+increment := (x1 - x0)
 x0 := x0 + increment
 x1 := x1 + increment
 Gosub, Redraw
