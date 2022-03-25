@@ -11,6 +11,7 @@ Gui, box:Color, Red
 CoordMode, Mouse, Screen
 
 active := false
+dragging := false
 increment := 80
 
 ^;::
@@ -18,8 +19,6 @@ x0 := 0
 x1 := A_screenWidth
 y0 := 0
 y1 := A_screenHeight
-screenheight := A_screenHeight
-screenwidth := A_screenWidth
 active := true
 Gosub, Redraw
 return
@@ -27,6 +26,10 @@ return
 #If active
 `;::
 active := false
+if dragging {
+   Click, Up
+}
+dragging := false
 Gui, horizontal: Hide
 Gui, vertical: Hide
 return
@@ -96,13 +99,27 @@ Gosub, Redraw
 return
 
 c::
+MouseGetPos, xpos, ypos
+x0 := xpos - 100
+x1 := xpos + 100
+y0 := ypos - 100
+y1 := ypos + 100
+Gosub, Redraw
+return
+
+x::
 midx := (x0 + x1) / 2
 x0 := midx - 100
 x1 := midx + 100
-midy := (y0 + y1) / 2
-y0 := midy - 100
-y1 := midy + 100
+ypos := (y0 + y1) / 2
+y0 := ypos - 100
+y1 := ypos + 100
 Gosub, Redraw
+return
+
+d::
+Click, Down
+dragging := true
 return
 
 #IfWinActive
@@ -113,5 +130,7 @@ w := (x1 - x0) / 2
 h := (y1 - y0) / 2
 Gui, horizontal:Show, x%x% y%y0% NA h%h% w1
 Gui, vertical:Show, x%x0% y%y% NA h1 w%w%
-; Gui, box:Show, x%x0% y%y0% NA h%h% w%w%
+if dragging {
+   MouseMove, %x%, %y%
+}
 return
