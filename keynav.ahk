@@ -122,6 +122,15 @@ Click, Down
 dragging := true
 return
 
+o::
+SysGet, Mon, Monitor, 1
+x0 := MonLeft
+x1 := MonRight
+y0 := MonTop
+y1 := MonBottom
+Gosub, Redraw
+return
+
 #IfWinActive
 Redraw:
 x := (x0 + x1) / 2
